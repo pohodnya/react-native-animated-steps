@@ -7,7 +7,8 @@ import {
     Animated,
     Dimensions,
     InteractionManager,
-    BackAndroid
+    BackHandler,
+    ScrollView
 } from 'react-native';
 
 export default class CardNavigation extends Component {
@@ -222,14 +223,16 @@ export default class CardNavigation extends Component {
         return this.props.cards.map((card, index) => {
             return (
                 <Animated.View style={[{ top: this.getCardPos(index) }, styles.stepContainer]} key={`card-${index}`}>
-                    { card }
+                    <ScrollView>
+                        { card }
+                    </ScrollView>
                 </Animated.View>
             );
         });
     }
 
     render () {
-        const { containerStyle } = this.props;
+        const { containerStyle, cardsContainerStyle, buttonsContainerStyle } = this.props;
 
         return (
             <View style={containerStyle || styles.container}>
@@ -242,8 +245,7 @@ export default class CardNavigation extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('window').height,
-        backgroundColor: 'grey'
+        height: Dimensions.get('window').height
     },
     stepContainer: {
         height: Dimensions.get('window').height,
